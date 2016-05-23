@@ -75,3 +75,7 @@ footer.main p {
 footer.main p a {
 	color: #ccc;
 }
+
+input {
+  text-align: center;
+}

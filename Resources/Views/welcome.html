@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Vapor</title>
+<html ng-app="App">
+  <head>
+    <title>Semver Incrementer</title>
+    <link rel="stylesheet" href="styles/app.css">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
-	<link rel="stylesheet" href="styles/app.css">
-</head>
-<body>
-	<div class="wrapper">
-		<h1 id="logo">Vapor</h1>
-
-		<nav class="main">
-			<ul>
-				<li>Examples: </li>
-				<li><a href="json">JSON</a></li>
-				<li><a href="data/5?query=test">Request Data</a></li>
-				<li><a href="session">Session</a></li>
-				<li><a href="mustache">Mustache</a></li>
-			</ul>
-		</nav>
-	</div>
-
-	<footer class="main">
-		<p>Powered by Swift. Built by <a href="http://tanner.xyz">Tanner</a>.</p>
-	</footer>
-</body>
+    <script type="text/javascript">
+      var App = angular.module('App', []);
+      App.controller('VersionController', function($scope, $http) {
+        $scope.change = function() {
+          console.log("change");
+          var url = $scope.current+"/"+$scope.incr;
+          $http.get(url)
+          .then(function(res){
+            $scope.result = res;
+          });
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper" ng-controller="VersionController">
+      <center>
+        Version <input ng-model="current" type="text" placeholder="0.0.1" ng-change="change()"><br>
+        Increment by <input ng-model="incr" type="text" placeholder="9" ng-change="change()"><br>
+        <h2 ng-if="result.status == 200">{{ result.data }}</h2></div>
+    <div> {{ result | json }} </div>
+      </center>
+      </div>
+  </body>
 </html>
-
