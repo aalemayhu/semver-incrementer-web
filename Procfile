@@ -1,1 +1,1 @@
-web: App --port=$PORT --env=production
+web: semver-incrementer-web --port=$PORT --env=production
